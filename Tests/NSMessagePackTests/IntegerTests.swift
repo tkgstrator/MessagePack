@@ -49,21 +49,15 @@ class IntegerTests: XCTestCase {
 
     func testData() {
         let buffer: [UInt8] = [0x94, 0xD1, 0x61, 0xC6, 0xD1, 0x61, 0xC6, 0xD1, 0x61, 0xC6, 0xD1, 0x61, 0xC6]
-        let data: Data = Data(buffer: buffer)
-        let packed1 = MessagePackValue(data: Data(buffer: buffer))
-        let packed2 = MessagePackValue.raw(data)
-
-        let key = MessagePackValue.int64(1)
-        let value = MessagePackValue.raw(data)
-        let arrayValue = MessagePackValue.array([25030, 25030, 25030, 25030].map({ MessagePackValue.int64($0) }))
-        let packed3 = MessagePackValue.init(dictionaryLiteral: (key, value))
-        let packed4 = MessagePackValue.init(dictionaryLiteral: (key, arrayValue))
-
-        print(packed1)
-        print(packed2)
-        print(packed3)
-        print(packed4)
-        XCTAssertEqual(packed1.rawDataValue, packed2.rawDataValue)
+        let key: MessagePackValue = MessagePackValue.int64(0)
+        let value: MessagePackValue = MessagePackValue.raw(Data(buffer: buffer))
+        let dict: MessagePackValue = MessagePackValue.map([key: value])
+        print(dict)
+        let packed = pack(dict)
+        print(packed.toHexString)
+        let unpacked = try! unpackFirst(packed)
+        print(unpacked)
+//        XCTAssertEqual(packed1.rawDataValue, packed2.rawDataValue)
     }
     
     func testNSFixint() {

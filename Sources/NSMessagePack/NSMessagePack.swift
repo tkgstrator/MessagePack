@@ -36,7 +36,11 @@ extension MessagePackValue: CustomStringConvertible {
         case .nil:
             return "nil"
         case .raw(let value):
-            return "raw(\(value.toHexString))"
+            guard let unpacked = try? unpackFirst(value)
+            else {
+                return "raw(\(value.toHexString))"
+            }
+            return unpacked.description
         case .bool(let value):
             return "bool(\(value))"
         case .int64(let value):
@@ -54,18 +58,7 @@ extension MessagePackValue: CustomStringConvertible {
         case .array(let array):
             return "array(\(array.description))"
         case .map(let dict):
-//            return "map(\(dict.description))"
-            let description: String = {
-                guard let key = dict.keys.first,
-                      let value = dict.values.first,
-                      let data = value.rawDataValue,
-                      let pack = try? unpackFirst(data)
-                else {
-                    return dict.description
-                }
-                return "[\(key): \(pack.description)]"
-            }()
-            return "map(\(description))"
+            return "map(\(dict.description))"
         case .extended(let type, let data):
             return "extended(\(type), \(data))"
         }
