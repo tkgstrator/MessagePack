@@ -271,6 +271,16 @@ extension MessagePackValue {
         }
     }
 
+    /// The contained data if `.Raw`, `nil` otherwise.
+    public var rawDataValue: Data? {
+        switch self {
+        case .raw(let data):
+            return data
+        default:
+            return nil
+        }
+    }
+
     /// The contained type and data if Extended, `nil` otherwise.
     public var extendedValue: (Int8, Data)? {
         if case .extended(let type, let data) = self {
