@@ -1,3 +1,5 @@
+import Foundation
+
 extension MessagePackValue: ExpressibleByArrayLiteral {
     public init(arrayLiteral elements: MessagePackValue...) {
         self = .array(elements)
@@ -54,5 +56,11 @@ extension MessagePackValue: ExpressibleByStringLiteral {
 extension MessagePackValue: ExpressibleByUnicodeScalarLiteral {
     public init(unicodeScalarLiteral value: String) {
         self = .string(value)
+    }
+}
+
+extension MessagePackValue {
+    public init(buffer: [UInt8]) {
+        self = .raw(Data(bytesNoCopy: UnsafeMutableRawPointer(mutating: buffer), count: buffer.count, deallocator: .none))
     }
 }
