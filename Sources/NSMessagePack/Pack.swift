@@ -65,13 +65,13 @@ public func pack(_ value: MessagePackValue) -> Data {
     switch value {
     case .nil:
         return Data([0xc0])
-
+    case .raw(let value):
+        return value
     case .bool(let value):
         return Data([value ? 0xc3 : 0xc2])
 
     case .int64(let value):
         if value >= 0 {
-            return packPositiveInteger(UInt64(value))
             return packPositiveInteger(UInt64(value))
         } else {
             return packNegativeInteger(value)

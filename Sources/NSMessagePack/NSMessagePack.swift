@@ -3,6 +3,7 @@ import Foundation
 /// The MessagePackValue enum encapsulates one of the following types: Nil, Bool, Int, UInt, Float, Double, String, Binary, Array, Map, and Extended.
 public enum MessagePackValue {
     case `nil`
+    case raw(Data)
     case bool(Bool)
     case int64(Int64)
     case uint64(UInt64)
@@ -20,6 +21,8 @@ extension MessagePackValue: CustomStringConvertible {
         switch self {
         case .nil:
             return "nil"
+        case .raw(let value):
+            return "raw(\(value))"
         case .bool(let value):
             return "bool(\(value))"
         case .int64(let value):
@@ -87,6 +90,7 @@ extension MessagePackValue: Hashable {
     public var hashValue: Int {
         switch self {
         case .nil: return 0
+        case .raw(let value): return value.hashValue
         case .bool(let value): return value.hashValue
         case .int64(let value): return value.hashValue
         case .uint64(let value): return value.hashValue
