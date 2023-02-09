@@ -60,7 +60,7 @@ extension MessagePackValue: ExpressibleByUnicodeScalarLiteral {
 }
 
 extension MessagePackValue {
-    public init(buffer: [UInt8]) {
-        self = .raw(Data(bytesNoCopy: UnsafeMutableRawPointer(mutating: buffer), count: buffer.count, deallocator: .none))
+    public init(data: Data) {
+        self = .raw(data)
     }
 }

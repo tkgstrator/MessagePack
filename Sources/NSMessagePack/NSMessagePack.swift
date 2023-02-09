@@ -16,13 +16,27 @@ public enum MessagePackValue {
     case extended(Int8, Data)
 }
 
+extension Data {
+    var bytes: [UInt8] {
+        self.withUnsafeBytes({ (pointer: UnsafeRawBufferPointer) -> [UInt8] in
+            let unsafeBufferPointer = pointer.bindMemory(to: UInt8.self)
+            let unsafePointer = unsafeBufferPointer.baseAddress!
+            return [UInt8](UnsafeBufferPointer(start: unsafePointer, count: self.count))
+        })
+    }
+
+    var toHexString: String {
+        bytes.map({ String(format: "%02X", $0) }).joined(separator: " ")
+    }
+}
+
 extension MessagePackValue: CustomStringConvertible {
     public var description: String {
         switch self {
         case .nil:
             return "nil"
         case .raw(let value):
-            return "raw(\(value))"
+            return "raw(\(value.toHexString))"
         case .bool(let value):
             return "bool(\(value))"
         case .int64(let value):
@@ -40,7 +54,18 @@ extension MessagePackValue: CustomStringConvertible {
         case .array(let array):
             return "array(\(array.description))"
         case .map(let dict):
-            return "map(\(dict.description))"
+//            return "map(\(dict.description))"
+            let description: String = {
+                guard let key = dict.keys.first,
+                      let value = dict.values.first,
+                      let data = value.rawDataValue,
+                      let pack = try? unpackFirst(data)
+                else {
+                    return dict.description
+                }
+                return "[\(key): \(pack.description)]"
+            }()
+            return "map(\(description))"
         case .extended(let type, let data):
             return "extended(\(type), \(data))"
         }
