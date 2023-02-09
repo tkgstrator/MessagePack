@@ -4,8 +4,8 @@ import Foundation
 public enum MessagePackValue {
     case `nil`
     case bool(Bool)
-    case int(Int64)
-    case uint(UInt64)
+    case int64(Int64)
+    case uint64(UInt64)
     case float(Float)
     case double(Double)
     case string(String)
@@ -22,9 +22,9 @@ extension MessagePackValue: CustomStringConvertible {
             return "nil"
         case .bool(let value):
             return "bool(\(value))"
-        case .int(let value):
+        case .int64(let value):
             return "int(\(value))"
-        case .uint(let value):
+        case .uint64(let value):
             return "uint(\(value))"
         case .float(let value):
             return "float(\(value))"
@@ -51,13 +51,13 @@ extension MessagePackValue: Equatable {
             return true
         case (.bool(let lhv), .bool(let rhv)):
             return lhv == rhv
-        case (.int(let lhv), .int(let rhv)):
+        case (.int64(let lhv), .int64(let rhv)):
             return lhv == rhv
-        case (.uint(let lhv), .uint(let rhv)):
+        case (.uint64(let lhv), .uint64(let rhv)):
             return lhv == rhv
-        case (.int(let lhv), .uint(let rhv)):
+        case (.int64(let lhv), .uint64(let rhv)):
             return lhv >= 0 && UInt64(lhv) == rhv
-        case (.uint(let lhv), .int(let rhv)):
+        case (.uint64(let lhv), .int64(let rhv)):
             return rhv >= 0 && lhv == UInt64(rhv)
         case (.float(let lhv), .float(let rhv)):
             return lhv == rhv
@@ -88,8 +88,8 @@ extension MessagePackValue: Hashable {
         switch self {
         case .nil: return 0
         case .bool(let value): return value.hashValue
-        case .int(let value): return value.hashValue
-        case .uint(let value): return value.hashValue
+        case .int64(let value): return value.hashValue
+        case .uint64(let value): return value.hashValue
         case .float(let value): return value.hashValue
         case .double(let value): return value.hashValue
         case .string(let string): return string.hashValue

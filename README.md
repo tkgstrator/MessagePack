@@ -1,4 +1,4 @@
-MessagePack.swift
+NSMessagePack.swift
 =================
 
 [![Version](https://img.shields.io/cocoapods/v/MessagePack.swift.svg?style=flat)](http://cocoapods.org/pods/MessagePack.swift)

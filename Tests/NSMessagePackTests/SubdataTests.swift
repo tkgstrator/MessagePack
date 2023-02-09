@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import MessagePack
+@testable import NSMessagePack
 
 class SubdataTests: XCTestCase {
     static var allTests = {

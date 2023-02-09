@@ -123,7 +123,7 @@ public func unpack(_ data: Subdata, compatibility: Bool = false) throws -> (valu
 
     // positive fixint
     case 0x00 ... 0x7f:
-        return (.uint(UInt64(value)), data)
+        return (.uint64(UInt64(value)), data)
 
     // fixmap
     case 0x80 ... 0x8f:
@@ -196,7 +196,7 @@ public func unpack(_ data: Subdata, compatibility: Bool = false) throws -> (valu
     case 0xcc ... 0xcf:
         let count = 1 << (Int(value) - 0xcc)
         let (integer, remainder) = try unpackInteger(data, count: count)
-        return (.uint(integer), remainder)
+        return (.uint64(integer), remainder)
 
     // int 8
     case 0xd0:
@@ -205,25 +205,25 @@ public func unpack(_ data: Subdata, compatibility: Bool = false) throws -> (valu
         }
 
         let byte = Int8(bitPattern: data[0])
-        return (.int(Int64(byte)), data[1 ..< data.count])
+        return (.int64(Int64(byte)), data[1 ..< data.count])
 
     // int 16
     case 0xd1:
         let (bytes, remainder) = try unpackInteger(data, count: 2)
         let integer = Int16(bitPattern: UInt16(truncatingIfNeeded: bytes))
-        return (.int(Int64(integer)), remainder)
+        return (.int64(Int64(integer)), remainder)
 
     // int 32
     case 0xd2:
         let (bytes, remainder) = try unpackInteger(data, count: 4)
         let integer = Int32(bitPattern: UInt32(truncatingIfNeeded: bytes))
-        return (.int(Int64(integer)), remainder)
+        return (.int64(Int64(integer)), remainder)
 
     // int 64
     case 0xd3:
         let (bytes, remainder) = try unpackInteger(data, count: 8)
         let integer = Int64(bitPattern: bytes)
-        return (.int(integer), remainder)
+        return (.int64(integer), remainder)
 
     // fixent 1, 2, 4, 8, 16
     case 0xd4 ... 0xd8:
@@ -265,11 +265,11 @@ public func unpack(_ data: Subdata, compatibility: Bool = false) throws -> (valu
 
     // negative fixint
     case 0xe0 ..< 0xff:
-        return (.int(Int64(value) - 0x100), data)
+        return (.int64(Int64(value) - 0x100), data)
 
     // negative fixint (workaround for rdar://19779978)
     case 0xff:
-        return (.int(Int64(value) - 0x100), data)
+        return (.int64(Int64(value) - 0x100), data)
 
     default:
         throw MessagePackError.invalidData

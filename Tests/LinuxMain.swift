@@ -1,4 +1,4 @@
-@testable import MessagePackTests
+@testable import NSMessagePackTests
 import XCTest
 
 XCTMain([

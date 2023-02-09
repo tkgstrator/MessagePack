@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import MessagePack
+@testable import NSMessagePack
 
 class ConvenienceInitializersTests: XCTestCase {
     static var allTests = {
@@ -29,19 +29,19 @@ class ConvenienceInitializersTests: XCTestCase {
     }
 
     func testUInt() {
-        XCTAssertEqual(MessagePackValue(0 as UInt), MessagePackValue.uint(0))
-        XCTAssertEqual(MessagePackValue(0xff as UInt8), MessagePackValue.uint(0xff))
-        XCTAssertEqual(MessagePackValue(0xffff as UInt16), MessagePackValue.uint(0xffff))
-        XCTAssertEqual(MessagePackValue(0xffff_ffff as UInt32), MessagePackValue.uint(0xffff_ffff))
-        XCTAssertEqual(MessagePackValue(0xffff_ffff_ffff_ffff as UInt64), MessagePackValue.uint(0xffff_ffff_ffff_ffff))
+        XCTAssertEqual(MessagePackValue(0 as UInt), MessagePackValue.uint64(0))
+        XCTAssertEqual(MessagePackValue(0xff as UInt8), MessagePackValue.uint64(0xff))
+        XCTAssertEqual(MessagePackValue(0xffff as UInt16), MessagePackValue.uint64(0xffff))
+        XCTAssertEqual(MessagePackValue(0xffff_ffff as UInt32), MessagePackValue.uint64(0xffff_ffff))
+        XCTAssertEqual(MessagePackValue(0xffff_ffff_ffff_ffff as UInt64), MessagePackValue.uint64(0xffff_ffff_ffff_ffff))
     }
 
     func testInt() {
-        XCTAssertEqual(MessagePackValue(-1 as Int), MessagePackValue.int(-1))
-        XCTAssertEqual(MessagePackValue(-0x7f as Int8), MessagePackValue.int(-0x7f))
-        XCTAssertEqual(MessagePackValue(-0x7fff as Int16), MessagePackValue.int(-0x7fff))
-        XCTAssertEqual(MessagePackValue(-0x7fff_ffff as Int32), MessagePackValue.int(-0x7fff_ffff))
-        XCTAssertEqual(MessagePackValue(-0x7fff_ffff_ffff_ffff as Int64), MessagePackValue.int(-0x7fff_ffff_ffff_ffff))
+        XCTAssertEqual(MessagePackValue(-1 as Int), MessagePackValue.int64(-1))
+        XCTAssertEqual(MessagePackValue(-0x7f as Int8), MessagePackValue.int64(-0x7f))
+        XCTAssertEqual(MessagePackValue(-0x7fff as Int16), MessagePackValue.int64(-0x7fff))
+        XCTAssertEqual(MessagePackValue(-0x7fff_ffff as Int32), MessagePackValue.int64(-0x7fff_ffff))
+        XCTAssertEqual(MessagePackValue(-0x7fff_ffff_ffff_ffff as Int64), MessagePackValue.int64(-0x7fff_ffff_ffff_ffff))
     }
 
     func testFloat() {
@@ -62,7 +62,7 @@ class ConvenienceInitializersTests: XCTestCase {
 
 
     func testArray() {
-        XCTAssertEqual(MessagePackValue([.uint(0), .uint(1), .uint(2), .uint(3), .uint(4)]), MessagePackValue.array([.uint(0), .uint(1), .uint(2), .uint(3), .uint(4)]))
+        XCTAssertEqual(MessagePackValue([.uint64(0), .uint64(1), .uint64(2), .uint64(3), .uint64(4)]), MessagePackValue.array([.uint64(0), .uint64(1), .uint64(2), .uint64(3), .uint64(4)]))
     }
 
     func testMap() {

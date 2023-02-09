@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import MessagePack
+@testable import NSMessagePack
 
 class EqualityTests: XCTestCase {
     static var allTests = {
@@ -42,27 +42,27 @@ class EqualityTests: XCTestCase {
     }
 
     func testIntEqualToInt() {
-        XCTAssertEqual(MessagePackValue.int(1), MessagePackValue.int(1))
+        XCTAssertEqual(MessagePackValue.int64(1), MessagePackValue.int64(1))
     }
 
     func testUIntEqualToUInt() {
-        XCTAssertEqual(MessagePackValue.uint(1), MessagePackValue.uint(1))
+        XCTAssertEqual(MessagePackValue.uint64(1), MessagePackValue.uint64(1))
     }
 
     func testIntEqualToUInt() {
-        XCTAssertEqual(MessagePackValue.int(1), MessagePackValue.uint(1))
+        XCTAssertEqual(MessagePackValue.int64(1), MessagePackValue.uint64(1))
     }
 
     func testUIntEqualToInt() {
-        XCTAssertEqual(MessagePackValue.uint(1), MessagePackValue.int(1))
+        XCTAssertEqual(MessagePackValue.uint64(1), MessagePackValue.int64(1))
     }
 
     func testUIntNotEqualToInt() {
-        XCTAssertNotEqual(MessagePackValue.uint(1), MessagePackValue.int(-1))
+        XCTAssertNotEqual(MessagePackValue.uint64(1), MessagePackValue.int64(-1))
     }
 
     func testIntNotEqualToUInt() {
-        XCTAssertNotEqual(MessagePackValue.int(-1), MessagePackValue.uint(1))
+        XCTAssertNotEqual(MessagePackValue.int64(-1), MessagePackValue.uint64(1))
     }
 
     func testFloatEqualToFloat() {

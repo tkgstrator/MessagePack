@@ -1,11 +1,11 @@
 import Foundation
 import XCTest
-@testable import MessagePack
+@testable import NSMessagePack
 
 func map(_ count: Int) -> [MessagePackValue: MessagePackValue] {
     var dict = [MessagePackValue: MessagePackValue]()
     for i in 0 ..< Int64(count) {
-        dict[.int(i)] = .nil
+        dict[.int64(i)] = .nil
     }
 
     return dict
@@ -14,7 +14,7 @@ func map(_ count: Int) -> [MessagePackValue: MessagePackValue] {
 func payload(_ count: Int) -> Data {
     var data = Data()
     for i in 0 ..< Int64(count) {
-        data.append(pack(.int(i)) + pack(.nil))
+        data.append(pack(.int64(i)) + pack(.nil))
     }
 
     return data

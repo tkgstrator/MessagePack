@@ -1,8 +1,8 @@
 import Foundation
 import XCTest
-@testable import MessagePack
+@testable import NSMessagePack
 
-class NilTests: XCTestCase {
+class FalseTests: XCTestCase {
     static var allTests = {
         return [
             ("testLiteralConversion", testLiteralConversion),
@@ -11,20 +11,20 @@ class NilTests: XCTestCase {
         ]
     }()
 
-    let packed = Data([0xc0])
+    let packed = Data([0xc2])
 
     func testLiteralConversion() {
-        let implicitValue: MessagePackValue = nil
-        XCTAssertEqual(implicitValue, MessagePackValue.nil)
+        let implicitValue: MessagePackValue = false
+        XCTAssertEqual(implicitValue, MessagePackValue.bool(false))
     }
 
     func testPack() {
-        XCTAssertEqual(pack(.nil), packed)
+        XCTAssertEqual(pack(.bool(false)), packed)
     }
 
     func testUnpack() {
         let unpacked = try? unpack(packed)
-        XCTAssertEqual(unpacked?.value, MessagePackValue.nil)
+        XCTAssertEqual(unpacked?.value, .bool(false))
         XCTAssertEqual(unpacked?.remainder.count, 0)
     }
 }

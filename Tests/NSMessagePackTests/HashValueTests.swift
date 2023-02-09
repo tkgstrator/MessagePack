@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import MessagePack
+@testable import NSMessagePack
 
 class HashValueTests: XCTestCase {
     static var allTests = {
@@ -29,15 +29,15 @@ class HashValueTests: XCTestCase {
     }
 
     func testIntHashValue() {
-        XCTAssertEqual(MessagePackValue.int(-1).hashValue, Int64(-1).hashValue)
-        XCTAssertEqual(MessagePackValue.int(0).hashValue, Int64(0).hashValue)
-        XCTAssertEqual(MessagePackValue.int(1).hashValue, Int64(1).hashValue)
+        XCTAssertEqual(MessagePackValue.int64(-1).hashValue, Int64(-1).hashValue)
+        XCTAssertEqual(MessagePackValue.int64(0).hashValue, Int64(0).hashValue)
+        XCTAssertEqual(MessagePackValue.int64(1).hashValue, Int64(1).hashValue)
     }
 
     func testUIntHashValue() {
-        XCTAssertEqual(MessagePackValue.uint(0).hashValue, UInt64(0).hashValue)
-        XCTAssertEqual(MessagePackValue.uint(1).hashValue, UInt64(1).hashValue)
-        XCTAssertEqual(MessagePackValue.uint(2).hashValue, UInt64(2).hashValue)
+        XCTAssertEqual(MessagePackValue.uint64(0).hashValue, UInt64(0).hashValue)
+        XCTAssertEqual(MessagePackValue.uint64(1).hashValue, UInt64(1).hashValue)
+        XCTAssertEqual(MessagePackValue.uint64(2).hashValue, UInt64(2).hashValue)
     }
 
     func testFloatHashValue() {

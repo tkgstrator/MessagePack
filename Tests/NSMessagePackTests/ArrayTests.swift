@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import MessagePack
+@testable import NSMessagePack
 
 class ArrayTests: XCTestCase {
     static var allTests = {
@@ -15,19 +15,19 @@ class ArrayTests: XCTestCase {
 
     func testLiteralConversion() {
         let implicitValue: MessagePackValue = [0, 1, 2, 3, 4]
-        let payload: [MessagePackValue] = [.uint(0), .uint(1), .uint(2), .uint(3), .uint(4)]
+        let payload: [MessagePackValue] = [.uint64(0), .uint64(1), .uint64(2), .uint64(3), .uint64(4)]
         XCTAssertEqual(implicitValue, .array(payload))
     }
 
     func testPackFixarray() {
-        let value: [MessagePackValue] = [.uint(0), .uint(1), .uint(2), .uint(3), .uint(4)]
+        let value: [MessagePackValue] = [.uint64(0), .uint64(1), .uint64(2), .uint64(3), .uint64(4)]
         let packed = Data([0x95, 0x00, 0x01, 0x02, 0x03, 0x04])
         XCTAssertEqual(pack(.array(value)), packed)
     }
 
     func testUnpackFixarray() {
         let packed = Data([0x95, 0x00, 0x01, 0x02, 0x03, 0x04])
-        let value: [MessagePackValue] = [.uint(0), .uint(1), .uint(2), .uint(3), .uint(4)]
+        let value: [MessagePackValue] = [.uint64(0), .uint64(1), .uint64(2), .uint64(3), .uint64(4)]
 
         let unpacked = try? unpack(packed)
         XCTAssertEqual(unpacked?.value, .array(value))

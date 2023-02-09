@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import MessagePack
+@testable import NSMessagePack
 
 class DescriptionTests: XCTestCase {
     static var allTests = {
@@ -29,15 +29,15 @@ class DescriptionTests: XCTestCase {
     }
 
     func testIntDescription() {
-        XCTAssertEqual(MessagePackValue.int(-1).description, "int(-1)")
-        XCTAssertEqual(MessagePackValue.int(0).description, "int(0)")
-        XCTAssertEqual(MessagePackValue.int(1).description, "int(1)")
+        XCTAssertEqual(MessagePackValue.int64(-1).description, "int(-1)")
+        XCTAssertEqual(MessagePackValue.int64(0).description, "int(0)")
+        XCTAssertEqual(MessagePackValue.int64(1).description, "int(1)")
     }
 
     func testUIntDescription() {
-        XCTAssertEqual(MessagePackValue.uint(0).description, "uint(0)")
-        XCTAssertEqual(MessagePackValue.uint(1).description, "uint(1)")
-        XCTAssertEqual(MessagePackValue.uint(2).description, "uint(2)")
+        XCTAssertEqual(MessagePackValue.uint64(0).description, "uint(0)")
+        XCTAssertEqual(MessagePackValue.uint64(1).description, "uint(1)")
+        XCTAssertEqual(MessagePackValue.uint64(2).description, "uint(2)")
     }
 
     func testFloatDescription() {

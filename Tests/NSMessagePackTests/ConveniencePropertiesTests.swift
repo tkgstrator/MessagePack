@@ -1,6 +1,6 @@
 import Foundation
 import XCTest
-@testable import MessagePack
+@testable import NSMessagePack
 
 class ConveniencePropertiesTests: XCTestCase {
     static var allTests = {
@@ -39,7 +39,7 @@ class ConveniencePropertiesTests: XCTestCase {
     }
 
     func testIndexedSubscript() {
-        XCTAssert(MessagePackValue.array([0])[0] == .uint(0))
+        XCTAssert(MessagePackValue.array([0])[0] == .uint64(0))
         XCTAssert(MessagePackValue.array([0])[1] == nil)
         XCTAssert(MessagePackValue.nil[0] == nil)
     }
@@ -55,96 +55,96 @@ class ConveniencePropertiesTests: XCTestCase {
     }
 
     func testIntValue() {
-        XCTAssert(MessagePackValue.int(-1).intValue == -1)
-        XCTAssert(MessagePackValue.uint(1).intValue == 1)
+        XCTAssert(MessagePackValue.int64(-1).intValue == -1)
+        XCTAssert(MessagePackValue.uint64(1).intValue == 1)
         XCTAssertNil(MessagePackValue.nil.intValue)
     }
 
     func testInt8Value() {
-        XCTAssert(MessagePackValue.int(-1).int8Value == -1)
-        XCTAssert(MessagePackValue.int(1).int8Value == 1)
-        XCTAssertNil(MessagePackValue.int(Int64(Int8.min) - 1).int8Value)
-        XCTAssertNil(MessagePackValue.int(Int64(Int8.max) + 1).int8Value)
+        XCTAssert(MessagePackValue.int64(-1).int8Value == -1)
+        XCTAssert(MessagePackValue.int64(1).int8Value == 1)
+        XCTAssertNil(MessagePackValue.int64(Int64(Int8.min) - 1).int8Value)
+        XCTAssertNil(MessagePackValue.int64(Int64(Int8.max) + 1).int8Value)
 
-        XCTAssert(MessagePackValue.uint(1).int8Value == 1)
-        XCTAssertNil(MessagePackValue.uint(UInt64(Int8.max) + 1).int8Value)
+        XCTAssert(MessagePackValue.uint64(1).int8Value == 1)
+        XCTAssertNil(MessagePackValue.uint64(UInt64(Int8.max) + 1).int8Value)
         XCTAssertNil(MessagePackValue.nil.int8Value)
     }
 
     func testInt16Value() {
-        XCTAssert(MessagePackValue.int(-1).int16Value == -1)
-        XCTAssert(MessagePackValue.int(1).int16Value == 1)
-        XCTAssertNil(MessagePackValue.int(Int64(Int16.min) - 1).int16Value)
-        XCTAssertNil(MessagePackValue.int(Int64(Int16.max) + 1).int16Value)
+        XCTAssert(MessagePackValue.int64(-1).int16Value == -1)
+        XCTAssert(MessagePackValue.int64(1).int16Value == 1)
+        XCTAssertNil(MessagePackValue.int64(Int64(Int16.min) - 1).int16Value)
+        XCTAssertNil(MessagePackValue.int64(Int64(Int16.max) + 1).int16Value)
 
-        XCTAssert(MessagePackValue.uint(1).int16Value == 1)
-        XCTAssertNil(MessagePackValue.uint(UInt64(Int16.max) + 1).int16Value)
+        XCTAssert(MessagePackValue.uint64(1).int16Value == 1)
+        XCTAssertNil(MessagePackValue.uint64(UInt64(Int16.max) + 1).int16Value)
         XCTAssertNil(MessagePackValue.nil.int16Value)
     }
 
     func testInt32Value() {
-        XCTAssert(MessagePackValue.int(-1).int32Value == -1)
-        XCTAssert(MessagePackValue.int(1).int32Value == 1)
-        XCTAssertNil(MessagePackValue.int(Int64(Int32.min) - 1).int32Value)
-        XCTAssertNil(MessagePackValue.int(Int64(Int32.max) + 1).int32Value)
+        XCTAssert(MessagePackValue.int64(-1).int32Value == -1)
+        XCTAssert(MessagePackValue.int64(1).int32Value == 1)
+        XCTAssertNil(MessagePackValue.int64(Int64(Int32.min) - 1).int32Value)
+        XCTAssertNil(MessagePackValue.int64(Int64(Int32.max) + 1).int32Value)
 
-        XCTAssert(MessagePackValue.uint(1).int32Value == 1)
-        XCTAssertNil(MessagePackValue.uint(UInt64(Int32.max) + 1).int32Value)
+        XCTAssert(MessagePackValue.uint64(1).int32Value == 1)
+        XCTAssertNil(MessagePackValue.uint64(UInt64(Int32.max) + 1).int32Value)
         XCTAssertNil(MessagePackValue.nil.int32Value)
     }
 
     func testInt64Value() {
-        XCTAssert(MessagePackValue.int(-1).int64Value == -1)
-        XCTAssert(MessagePackValue.int(1).int64Value == 1)
+        XCTAssert(MessagePackValue.int64(-1).int64Value == -1)
+        XCTAssert(MessagePackValue.int64(1).int64Value == 1)
 
-        XCTAssert(MessagePackValue.uint(1).int64Value == 1)
-        XCTAssertNil(MessagePackValue.uint(UInt64(Int64.max) + 1).int64Value)
+        XCTAssert(MessagePackValue.uint64(1).int64Value == 1)
+        XCTAssertNil(MessagePackValue.uint64(UInt64(Int64.max) + 1).int64Value)
         XCTAssertNil(MessagePackValue.nil.int64Value)
     }
 
     func testUIntValue() {
-        XCTAssert(MessagePackValue.uint(1).uintValue == 1)
+        XCTAssert(MessagePackValue.uint64(1).uintValue == 1)
 
-        XCTAssertNil(MessagePackValue.int(-1).uintValue)
-        XCTAssert(MessagePackValue.int(1).uintValue == 1)
+        XCTAssertNil(MessagePackValue.int64(-1).uintValue)
+        XCTAssert(MessagePackValue.int64(1).uintValue == 1)
         XCTAssertNil(MessagePackValue.nil.uintValue)
     }
 
     func testUInt8Value() {
-        XCTAssert(MessagePackValue.uint(1).uint8Value == 1)
-        XCTAssertNil(MessagePackValue.uint(UInt64(UInt8.max) + 1).uint8Value)
+        XCTAssert(MessagePackValue.uint64(1).uint8Value == 1)
+        XCTAssertNil(MessagePackValue.uint64(UInt64(UInt8.max) + 1).uint8Value)
 
-        XCTAssertNil(MessagePackValue.int(-1).uint8Value)
-        XCTAssert(MessagePackValue.int(1).uint8Value == 1)
-        XCTAssertNil(MessagePackValue.int(Int64(UInt8.max) + 1).uint8Value)
+        XCTAssertNil(MessagePackValue.int64(-1).uint8Value)
+        XCTAssert(MessagePackValue.int64(1).uint8Value == 1)
+        XCTAssertNil(MessagePackValue.int64(Int64(UInt8.max) + 1).uint8Value)
         XCTAssertNil(MessagePackValue.nil.uint8Value)
     }
 
     func testUInt16Value() {
-        XCTAssert(MessagePackValue.uint(1).uint16Value == 1)
-        XCTAssertNil(MessagePackValue.uint(UInt64(UInt16.max) + 1).uint16Value)
+        XCTAssert(MessagePackValue.uint64(1).uint16Value == 1)
+        XCTAssertNil(MessagePackValue.uint64(UInt64(UInt16.max) + 1).uint16Value)
 
-        XCTAssertNil(MessagePackValue.int(-1).uint16Value)
-        XCTAssert(MessagePackValue.int(1).uint16Value == 1)
-        XCTAssertNil(MessagePackValue.int(Int64(UInt16.max) + 1).uint16Value)
+        XCTAssertNil(MessagePackValue.int64(-1).uint16Value)
+        XCTAssert(MessagePackValue.int64(1).uint16Value == 1)
+        XCTAssertNil(MessagePackValue.int64(Int64(UInt16.max) + 1).uint16Value)
         XCTAssertNil(MessagePackValue.nil.uint16Value)
     }
 
     func testUInt32Value() {
-        XCTAssert(MessagePackValue.uint(1).uint32Value == 1)
-        XCTAssertNil(MessagePackValue.uint(UInt64(UInt32.max) + 1).uint32Value)
+        XCTAssert(MessagePackValue.uint64(1).uint32Value == 1)
+        XCTAssertNil(MessagePackValue.uint64(UInt64(UInt32.max) + 1).uint32Value)
 
-        XCTAssertNil(MessagePackValue.int(-1).uint32Value)
-        XCTAssert(MessagePackValue.int(1).uint32Value == 1)
-        XCTAssertNil(MessagePackValue.int(Int64(UInt32.max) + 1).uint32Value)
+        XCTAssertNil(MessagePackValue.int64(-1).uint32Value)
+        XCTAssert(MessagePackValue.int64(1).uint32Value == 1)
+        XCTAssertNil(MessagePackValue.int64(Int64(UInt32.max) + 1).uint32Value)
         XCTAssertNil(MessagePackValue.nil.uint32Value)
     }
 
     func testUInt64Value() {
-        XCTAssert(MessagePackValue.uint(1).uint64Value == 1)
+        XCTAssert(MessagePackValue.uint64(1).uint64Value == 1)
 
-        XCTAssertNil(MessagePackValue.int(-1).uint64Value)
-        XCTAssert(MessagePackValue.int(1).uint64Value == 1)
+        XCTAssertNil(MessagePackValue.int64(-1).uint64Value)
+        XCTAssert(MessagePackValue.int64(1).uint64Value == 1)
         XCTAssertNil(MessagePackValue.nil.uint8Value)
     }
 
